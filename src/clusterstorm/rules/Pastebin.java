@@ -44,7 +44,7 @@ public class Pastebin {
 	public List<String> getList(String id) {
 		synchronized (Pastebin.class) {
 			List<String> payload;
-			File file = new File(dir, id.replace("//", ".").replace("/", ".") + ".txt");
+			File file = new File(dir, id.replace("://", ".").replace("/", ".") + ".txt");
 			if(file.exists()) {
 				payload = new ArrayList<>();
 				Scanner s;
