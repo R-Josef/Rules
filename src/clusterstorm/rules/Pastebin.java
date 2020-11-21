@@ -25,7 +25,13 @@ public class Pastebin {
 			for (File f : dir.listFiles()) {
 				String id = f.getName();
 				id = id.substring(0, id.lastIndexOf('.'));
-				List<String> payload = load(id);
+				List<String> payload;
+				if (id.startsWith("http%") || id.startsWith("https%")) {
+					id = id.replace("http%", "http://").replace("https%", "https://").replace("%", "/");
+					payload = loadFromURL(id);
+				} else {
+					payload = load(id);
+				}
 				try {
 					FileWriter writer = new FileWriter(f);
 					for (String p : payload) {
@@ -44,7 +50,7 @@ public class Pastebin {
 	public List<String> getList(String id) {
 		synchronized (Pastebin.class) {
 			List<String> payload;
-			File file = new File(dir, id.replace("://", ".").replace("/", ".") + ".txt");
+			File file = new File(dir, id.replace("://", "%").replace("/", "%") + ".txt");
 			if(file.exists()) {
 				payload = new ArrayList<>();
 				Scanner s;
