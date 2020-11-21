@@ -30,16 +30,23 @@ public class Players {
 	}
 	
 	
-	public boolean hasPlayer(String player) {
-		return players.contains(player.toLowerCase());
+	public boolean hasPlayer(String playeruuid) {
+		return players.contains(playeruuid);
 	}
 	
-	public void writePlayer(String player) {
-		player = player.toLowerCase();
-		if(players.contains(player)) return;
-		players.add(player);
+	public void writePlayer(String playeruuid) {
+		if(players.contains(playeruuid)) return;
+		players.add(playeruuid);
 		c.set("players", players);
 		save();
+	}
+	
+	public void removePlayer(String playeruuid) {
+		if(players.contains(playeruuid)) {
+			players.remove(playeruuid);
+			c.set("players", players);
+			save();
+		}
 	}
 	
 	public void clear() {

@@ -156,7 +156,7 @@ public class Rules extends JavaPlugin implements Listener {
 	public void performJoin(Player p) {
 		if(!useConfirmation) return;
 		
-		if(players.hasPlayer(p.getName())) return;
+		if(players.hasPlayer(p.getUniqueId().toString())) return;
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 			
@@ -171,7 +171,7 @@ public class Rules extends JavaPlugin implements Listener {
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
 		if(e.getInventory() == null) return;
-		if(e.getInventory().equals(menu.c) && !players.hasPlayer(e.getPlayer().getName())) {
+		if(e.getInventory().equals(menu.c) && !players.hasPlayer(e.getPlayer().getUniqueId().toString())) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 				
 				@Override
@@ -205,7 +205,7 @@ public class Rules extends JavaPlugin implements Listener {
 	
 	
 	private boolean shouldCancel(Player p) {
-		return !players.hasPlayer(p.getName());
+		return !players.hasPlayer(p.getUniqueId().toString());
 	}
 	
 	

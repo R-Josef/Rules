@@ -75,10 +75,10 @@ public class MenuManager {
 	}
 	
 	public void accept(Player p) {
-		String player = p.getName();
-		if(Rules.players().hasPlayer(player)) return;
+		String playeruuid = p.getUniqueId().toString();
+		if(Rules.players().hasPlayer(playeruuid)) return;
 		
-		Rules.players().writePlayer(player);
+		Rules.players().writePlayer(playeruuid);
 		if(Rules.sound != null) p.playSound(p.getLocation(), Rules.sound, 1, 1);
 		p.closeInventory();
 		
@@ -86,8 +86,10 @@ public class MenuManager {
 	}
 
 	public void deny(Player p) {
-		String player = p.getName();
-		if(Rules.players().hasPlayer(player)) return;
+		String playeruuid = p.getUniqueId().toString();
+		if(Rules.players().hasPlayer(playeruuid)) {
+			Rules.players().removePlayer(playeruuid);
+		}
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(Rules.getInstance(), new Runnable() {
 			
@@ -154,7 +156,6 @@ public class MenuManager {
 						continue;
 					}
 				}
-				// TODO 自动换行
 				lorez.add("§7" + l.replace("&", "\u00a7"));
 			}
 			meta.setLore(lorez);
