@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 public class RulesCommand implements CommandExecutor {
 
-	public static final String prefix = "§2§lRules §3> §f";
+	public static final String prefix = "Â§2Â§lRules Â§3> Â§f";
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -43,7 +43,7 @@ public class RulesCommand implements CommandExecutor {
 		}
 		
 		if(!sender.hasPermission("rules.rules")) {
-			sender.sendMessage("§cInsufficient permissions!");
+			sender.sendMessage("Â§cInsufficient permissions!");
 			return true;
 		}
 		

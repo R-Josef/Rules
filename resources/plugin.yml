@@ -1,0 +1,25 @@
+name: Rules
+main: clusterstorm.rules.Rules
+version: 1.1
+author: ClusterStorm
+contributors: [R_Josef(Fengshuai)]
+softdepend: [authme]
+commands:
+  rules:
+    description: 'Main command of Rules plugin.'
+    usage: |
+      /rules <parameter> - Open rules menu (just rules, without buttons).
+      /rules <player> - Open menu for player
+      /rules -reload - reload plugin with loading texts from pastebin
+      /rules -rl - just reload plugin
+      /rules -clear - clear list of players, that argee with rules
+permissions:
+  rules.rules:
+    description: 'Open rules menu (just rules, without buttons).'
+    default: true
+  rules.rules.others:
+    description: 'Open menu for player.'
+    default: 'op'
+  rules.options:
+    description: 'Use admin commands.'
+    default: 'op'

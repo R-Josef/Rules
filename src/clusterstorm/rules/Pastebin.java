@@ -19,7 +19,6 @@ public class Pastebin {
 		if(!dir.isDirectory()) dir.mkdirs();
 	}
 	
-	
 	public int reload() {
 		synchronized (Pastebin.class) {
 			int a = 0;
@@ -44,9 +43,10 @@ public class Pastebin {
 	
 	public List<String> getList(String id) {
 		synchronized (Pastebin.class) {
-			File file = new File(dir, id + ".txt");
+			List<String> payload;
+			File file = new File(dir, id.replace("//", ".").replace("/", ".") + ".txt");
 			if(file.exists()) {
-				List<String> payload = new ArrayList<>();
+				payload = new ArrayList<>();
 				Scanner s;
 				try {
 					s = new Scanner(file);
@@ -61,8 +61,11 @@ public class Pastebin {
 				return payload;
 			}
 			
-			
-			List<String> payload = load(id);
+			if (id.contains("http://") || id.contains("https://")) {
+				payload = loadFromURL(id);
+			} else {
+				payload = load(id);
+			}
 			try {
 				file.createNewFile();
 				FileWriter writer = new FileWriter(file);
@@ -78,10 +81,14 @@ public class Pastebin {
 		}
 	}
 
-
 	private List<String> load(String id) {
+		String link = "https://pastebin.com/raw/" + id;
+		return loadFromURL(link);
+	}
+	
+	private List<String> loadFromURL(String link) {
 		try {
-			URL url = new URL("http://pastebin.com/raw/" + id);
+			URL url = new URL(link);
 			InputStream source = url.openStream();
 			Scanner s = new Scanner(source, StandardCharsets.UTF_8.toString());
 			
@@ -96,8 +103,4 @@ public class Pastebin {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	
-	
-	
 }

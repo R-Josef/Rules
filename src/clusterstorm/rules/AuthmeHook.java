@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import fr.xephi.authme.api.API;
+import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.events.LoginEvent;
 
 public class AuthmeHook implements Listener {
@@ -23,6 +23,7 @@ public class AuthmeHook implements Listener {
 	
 	
 	public boolean isLoggedIn(Player player) {
-		return API.isAuthenticated(player);
+		AuthMeApi authmeApi = AuthMeApi.getInstance();
+		return authmeApi.isAuthenticated(player);
 	}
 }

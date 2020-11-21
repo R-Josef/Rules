@@ -31,8 +31,8 @@ public class MenuManager {
 		if(c != null) c.clear();
 		
 		FileConfiguration c = Rules.getInstance().getConfig();
-		String name = c.getString("inventory.name", "Rules").replace("&", "�");
-		kickMessage = c.getString("kickMessage", "Disconnected").replace("&", "�");
+		String name = c.getString("inventory.name", "Rules").replace("&", "§");
+		kickMessage = c.getString("kickMessage", "Disconnected").replace("&", "§");
 		
 		this.i = Bukkit.createInventory(null, c.getInt("inventory.simpleMenuRows") * 9, name);
 		this.c = Bukkit.createInventory(null, c.getInt("inventory.comfirmMenuRows") * 9, name);
@@ -133,7 +133,20 @@ public class MenuManager {
 					try {
 						List<String> payload = Rules.pastebin().getList(pastebin);
 						for (String p : payload) {
-							lorez.add("�7" + p.replace("&", "\u00a7"));
+							lorez.add("§7" + p.replace("&", "\u00a7"));
+						}
+						continue;
+					} catch (Exception e) {
+						e.printStackTrace();
+						continue;
+					}
+				} else if(l.startsWith("url:")) {
+					String link = l.replaceAll("url:", "").trim();
+					if(link.contains(" ")) continue;
+					try {
+						List<String> payload = Rules.pastebin().getList(link);
+						for (String p : payload) {
+							lorez.add("§7" + p.replace("&", "\u00a7"));
 						}
 						continue;
 					} catch (Exception e) {
@@ -141,8 +154,8 @@ public class MenuManager {
 						continue;
 					}
 				}
-				
-				lorez.add("�7" + l.replace("&", "\u00a7"));
+				// TODO 自动换行
+				lorez.add("§7" + l.replace("&", "\u00a7"));
 			}
 			meta.setLore(lorez);
 		}
