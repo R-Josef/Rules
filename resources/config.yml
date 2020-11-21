@@ -16,6 +16,7 @@ items:
     name: '&fAccount'
     lore: 
     # Load text from https://pastebin.com/raw/6ECHAP82
+    # Or you can use 'url: https://pastebin.com/raw/6ECHAP82'
     - 'pastebin: 6ECHAP82'
   '3':
     id: DIAMOND_PICKAXE
