@@ -61,7 +61,7 @@ public class MenuManager {
 		this.c.setItem(accept, a);
 		
 		a = deserialize(c, "deny");
-		deny = c.getInt("accept.deny", 23);
+		deny = c.getInt("deny.slot", 23);
 		this.c.setItem(deny, a);
 	}
 	
